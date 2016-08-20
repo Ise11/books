@@ -11,7 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160715124832) do
+ActiveRecord::Schema.define(version: 20160820160610) do
+
+  create_table "books", force: :cascade do |t|
+    t.string   "author"
+    t.string   "name"
+    t.text     "description"
+    t.integer  "owner_id"
+    t.integer  "rent_by_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "category"
+  end
+
+  add_index "books", ["owner_id"], name: "index_books_on_owner_id"
+  add_index "books", ["rent_by_id"], name: "index_books_on_rent_by_id"
 
   create_table "installs", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

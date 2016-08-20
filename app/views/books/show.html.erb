@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Author:</strong>
+  <%= @book.author %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @book.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @book.description %>
+</p>
+
+<p>
+  <strong>Owner:</strong>
+  <%= @book.owner.email %>
+</p>
+
+<p>
+  <strong>Rent by:</strong>
+     <% if @book.rent_by == nil %>
+        <td>wolna</td>
+     <% else%>
+        <td><%= @book.rent_by.email %></td>
+     <% end %>
+</p>
+
+<% if ( (@book.owner != current_user) and (@book.rent_by != current_user) ) %>
+<p>
+  <strong>Wypozycz:</strong>
+  <%= render 'formrent' %>
+</p>
+<% end %>
+
+<%= link_to 'Edit', edit_book_path(@book) %> |
+<%= link_to 'Back', books_path %>

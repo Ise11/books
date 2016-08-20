@@ -14,13 +14,11 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right" >
-       
-        <li><%= link_to 'Strona główna', root_path %></li>
-       
-
         <% if user_signed_in? %>
-	        <li><%= link_to 'Edycja profilu', edit_user_registration_path %></li>
-	        <li><%= link_to 'Dodaj ksiązke' %></li>
+          <li><%= link_to 'Wyszukaj ksiązke', books_path %></li>
+	        <li><%= link_to 'Dodaj ksiązke', new_book_path %></li>
+          <li><%= link_to 'Twoje ksiązki', mybooks_books_path %></li>
+          <li><%= link_to 'Edycja profilu', edit_user_registration_path %></li>
 	        <li><%= link_to 'Wyloguj się', destroy_user_session_path, :method => :delete %></li>
 	    <% else %>
 	    	<li><%= link_to 'Logowanie', new_user_session_path %></li>

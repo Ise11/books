@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
+  resources :books do
+  collection do
+    get :mybooks
+  end
+end
   root 'home#index'
-
+  # get 'mybooks'
   devise_for :users
   devise_for :installs
   # The priority is based upon order of creation: first created -> highest priority.

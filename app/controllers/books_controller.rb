@@ -39,11 +39,13 @@ class BooksController < ApplicationController
   # POST /books
   # POST /books.json
   def create
+    @user = current_user
     @book = Book.new(book_params)
-    @book.owner = current_user
-
+    @book.owner = @user
+    
     respond_to do |format|
       if @book.save
+        BookMailer.book_created(@user).deliver_now
         format.html { redirect_to @book, notice: 'Book was successfully created.' }
         format.json { render :show, status: :created, location: @book }
       else
@@ -61,6 +63,9 @@ class BooksController < ApplicationController
     end
     respond_to do |format|
       if @book.update(book_params2)
+        if (@book.owner != current_user)
+          BookMailer.book_rented(current_user, @book.owner).deliver
+        end
         format.html { redirect_to @book, notice: 'Book was successfully updated.' }
         format.json { render :show, status: :ok, location: @book }
       else

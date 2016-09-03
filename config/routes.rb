@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+
+ 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   resources :books do
   collection do
@@ -9,7 +11,7 @@ resources :searches
   root 'home#index'
   # get 'mybooks'
   devise_for :users
-  devise_for :installs
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

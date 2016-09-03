@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   resources :books do
   collection do
     get :mybooks
   end
 end
+resources :searches
   root 'home#index'
   # get 'mybooks'
   devise_for :users

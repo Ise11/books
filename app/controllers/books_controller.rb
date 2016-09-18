@@ -3,7 +3,6 @@ class BooksController < ApplicationController
   before_action :authenticate_user!, exept: [:index, :show]
   # before_action :correct_user, only: [:edit, :update, :destroy]
   before_action only: [:edit, :update, :destroy]
-  helper_method :rent
 
   # GET /books
   # GET /books.json
@@ -28,11 +27,19 @@ class BooksController < ApplicationController
 
     # @book = current_user.books.build
     @book = Book.new
+    @give = ( [['tak', true], ['nie', false]])
+
   end
 
   # GET /books/1/edit
   def edit
-  
+    if @book.rent_by_id != nil
+    @user = User.find(@book.rent_by_id)
+    @options = ([[@user.email, @user.id], ['wolna', nil], ['niedostepna', nil]])
+    else
+      @options = ( [['wolna', nil], ['niedostepna', '666']])
+    end
+    @give = ( [['tak', true], ['nie', false]])
   end
 
   # POST /books
@@ -60,12 +67,35 @@ class BooksController < ApplicationController
     if (@book.owner != current_user)
       @book.rent_by = current_user
     end
-    respond_to do |format|
-      if @book.update(book_params2)
-        if (@book.owner != current_user)
+  # @user = User.find(@book.rent_by_id)
+  #   @options = ([[@user.email, @user.id], ['wolna', nil], ['niedostepna', '666']])
+ 
+
+  #   respond_to do |format|
+  #     if @book.update(book_params2)
+  #       if (@book.owner != current_user)
+  #         BookMailer.book_rented(current_user, @book.owner).deliver
+  #       end
+  #       format.html { redirect_to @book, notice: 'Book was successfully updated.' }
+  #       format.json { render :show, status: :ok, location: @book }
+  #     else
+  #       format.html { render :edit }
+  #       format.json { render json: @book.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+
+  if (@book.owner != current_user)
+     @par = @book.update(book_params2)
+  else 
+    @par=  @book.update(book_params)
+    end
+
+      respond_to do |format|
+      if @par
+         if (@book.owner != current_user)
           BookMailer.book_rented(current_user, @book.owner).deliver
-        end
-        format.html { redirect_to @book, notice: 'Book was successfully updated.' }
+         end
+        format.html { redirect_to @book, notice: 'Pin został zaktualizowany.' }
         format.json { render :show, status: :ok, location: @book }
       else
         format.html { render :edit }
@@ -84,9 +114,6 @@ class BooksController < ApplicationController
     end
   end
 
-   def rent
-        @book.rent_by = current_user
-    end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -96,7 +123,7 @@ class BooksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def book_params
-      params.require(:book).permit(:author, :name, :category, :description, :owner_id, :rent_by_id)
+      params.require(:book).permit(:author, :name, :category, :description, :owner_id, :rent_by_id, :give)
     end
 
      def book_params2

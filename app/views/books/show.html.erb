@@ -29,6 +29,15 @@
      <% end %>
 </p>
 
+<p>
+  <strong>Do oddania:</strong>
+     <% if @book.give == true %>
+        <td>tak</td>
+     <% else%>
+        <td> nie </td>
+     <% end %>
+</p>
+
 <% if ( (@book.owner != current_user) and (@book.rent_by != current_user) ) %>
 <p>
   <strong>Wypozycz:</strong>

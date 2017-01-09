@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160903194813) do
+ActiveRecord::Schema.define(version: 20160918130512) do
 
   create_table "books", force: :cascade do |t|
     t.string   "author"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20160903194813) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.string   "category"
+    t.boolean  "give"
   end
 
   add_index "books", ["owner_id"], name: "index_books_on_owner_id"
@@ -66,6 +67,7 @@ ActiveRecord::Schema.define(version: 20160903194813) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.boolean  "admin"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

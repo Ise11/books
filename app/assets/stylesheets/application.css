@@ -13,3 +13,45 @@
  *= require_tree .
  *= require_self
  */
+.navbar-default {
+	background-color: #009999;
+	font-family: 'Architects Daughter';
+	font-size: 1.3em;
+	color: white;
+}
+nav {
+
+	font-family: 'Architects Daughter';
+	font-size: 1.3em;
+	color: white;
+}
+
+.navbar-default .navbar-nav > li > a {
+	color: white;
+	font-family: 'Architects Daughter';
+	font-size: 1.3em;
+}
+
+.navbar-default .navbar-brand {
+	font-size: 1.3em;
+	color: white;
+} 
+
+.btn-success {
+	background-color: #009999;
+	border-color: #009999;
+}
+
+.btn-success.focus, .btn-success:focus {
+	background-color: #009999;
+	border-color: #009999;
+}
+
+.btn-success.focus, .btn-success:focus, .btn-success:hover {
+	background-color: #009999;
+	border-color: #009999;
+}
+
+.field_with_errors { 
+	background-color: #a94442;
+}
